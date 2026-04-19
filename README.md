@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 # 📊 Website Traffic Analysis Dashboard
-### Project 3 — Pratinik Infotech | Data Analytics Internship
+### Pratinik Infotech | Data Analytics Internship
 
 ---
 
@@ -111,7 +111,7 @@ traffic-analytics/
 
 ---
 
-*Built as Project 3 for the Pratinik Infotech Data Analytics Internship.*
+*Built as Project for the Pratinik Infotech Data Analytics Internship.*
 =======
 # Website-Traffic-Analysis
 >>>>>>> 5108a94c7b9352df8ee151aa17b9baaa00bee189
