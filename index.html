@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Website Traffic Analysis </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-brand">Pratinik</div>
+      <div class="logo-sub">Infotech · Analytics</div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Main</div>
+      <div class="nav-item active" onclick="showSection('overview')">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
+          <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4"/>
+          <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4"/>
+          <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4"/>
+        </svg>
+        Overview
+      </div>
+      <div class="nav-item" onclick="showSection('traffic')">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <polyline points="1,12 5,7 8,10 11,5 15,3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        Traffic
+      </div>
+      <div class="nav-item" onclick="showSection('pages')">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+          <line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="5" y1="11" x2="8" y2="11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Pages
+      </div>
+      <div class="nav-item" onclick="showSection('behavior')">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M8 8 L8 2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M8 8 L12 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        Behavior
+      </div>
+      <div class="nav-item" onclick="showSection('recommendations')">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/>
+          <line x1="8" y1="5" x2="8" y2="8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="8" cy="11" r="0.8" fill="currentColor"/>
+        </svg>
+        Recommendations
+      </div>
+    </nav>
+
+    <div class="nav-section" style="margin-top:16px;">
+      <div class="nav-label">Tools</div>
+      <div class="nav-item" onclick="exportCSV()">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        Export CSV
+      </div>
+      <div class="nav-item" id="themeToggleBtn" onclick="toggleTheme()">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="3.5" fill="currentColor"/>
+          <line x1="8" y1="1" x2="8" y2="3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <line x1="8" y1="13" x2="8" y2="15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <line x1="1" y1="8" x2="3" y2="8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <line x1="13" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        Toggle Theme
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar-row">
+        <div class="avatar">PI</div>
+        <div>
+          <div class="avatar-name">Admin</div>
+          <div class="avatar-role">Data Analytics</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div>
+        <div class="page-title">Website Traffic Analysis</div>
+        <div class="page-subtitle">User behavior, navigation patterns &amp; optimization</div>
+      </div>
+      <div class="topbar-right">
+        <select class="range-select" id="rangeSelect" onchange="updateRange()">
+          <option value="7">Last 7 days</option>
+          <option value="14">Last 14 days</option>
+          <option value="30" selected>Last 30 days</option>
+        </select>
+        <div class="date-badge">Report: <span id="reportDate">Apr 1–30, 2026</span></div>
+        <button class="export-btn" onclick="window.print()">↓ Export PDF</button>
+      </div>
+    </div>
+
+    <!-- ===== OVERVIEW SECTION ===== -->
+    <section id="section-overview" class="section active">
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card gold">
+          <div class="kpi-icon gold">📊</div>
+          <div class="kpi-label">Total Page Views</div>
+          <div class="kpi-value" id="kpi-views">128,450</div>
+          <div class="kpi-delta up">▲ 12% vs last month</div>
+        </div>
+        <div class="kpi-card teal">
+          <div class="kpi-icon teal">👥</div>
+          <div class="kpi-label">Unique Visitors</div>
+          <div class="kpi-value" id="kpi-visitors">43,210</div>
+          <div class="kpi-delta up">▲ 8% vs last month</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-icon red">↩</div>
+          <div class="kpi-label">Avg. Bounce Rate</div>
+          <div class="kpi-value" id="kpi-bounce">58.3%</div>
+          <div class="kpi-delta down">▼ Needs attention</div>
+        </div>
+        <div class="kpi-card blue">
+          <div class="kpi-icon blue">⏱</div>
+          <div class="kpi-label">Avg. Session Duration</div>
+          <div class="kpi-value" id="kpi-duration">2m 14s</div>
+          <div class="kpi-delta down">▼ −18s vs last month</div>
+        </div>
+      </div>
+
+      <!-- Charts Row 1 -->
+      <div class="chart-row cols-3-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Daily Traffic</div>
+            <div class="card-badge" id="trafficLabel">LAST 30 DAYS</div>
+          </div>
+          <div class="chart-wrap" style="height:210px;">
+            <canvas id="trafficChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Traffic Sources</div>
+            <div class="card-badge">BREAKDOWN</div>
+          </div>
+          <div class="legend" id="sourceLegend"></div>
+          <div class="chart-wrap" style="height:150px;">
+            <canvas id="sourceChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row 2 -->
+      <div class="chart-row" style="grid-template-columns:1fr 1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Weekly Sessions</div>
+            <div class="card-badge">8 WEEKS</div>
+          </div>
+          <div class="chart-wrap" style="height:180px;">
+            <canvas id="weekChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Device Breakdown</div>
+            <div class="card-badge">SESSIONS</div>
+          </div>
+          <div class="chart-wrap" style="height:180px;">
+            <canvas id="deviceChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Conversion Funnel</div>
+            <div class="card-badge">DROP-OFF</div>
+          </div>
+          <div id="funnelViz"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRAFFIC SECTION ===== -->
+    <section id="section-traffic" class="section">
+      <div class="section-heading">Traffic Deep Dive</div>
+      <div class="chart-row" style="grid-template-columns:1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Daily Page Views — Full 30-Day View</div>
+            <div class="card-badge">EXPANDED</div>
+          </div>
+          <div class="chart-wrap" style="height:280px;">
+            <canvas id="trafficBig"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="chart-row cols-3-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Bounce Rate by Page</div>
+            <div class="card-badge">% EXITS</div>
+          </div>
+          <div class="chart-wrap" style="height:240px;">
+            <canvas id="bounceChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Hourly Traffic Heatmap</div>
+            <div class="card-badge">AVG VISITS/HR</div>
+          </div>
+          <div id="heatmapViz" style="padding:6px 0;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGES SECTION ===== -->
+    <section id="section-pages" class="section">
+      <div class="section-heading">Pages Analysis</div>
+      <div class="chart-row" style="grid-template-columns:1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">All Pages — Views, Bounce & Avg. Time</div>
+            <div class="topbar-right" style="margin:0;">
+              <input class="search-box" type="text" id="pageSearch" placeholder="Search pages…" oninput="filterPages()"/>
+            </div>
+          </div>
+          <table class="data-table" id="pagesTable">
+            <thead>
+              <tr>
+                <th onclick="sortTable('rank')">#</th>
+                <th onclick="sortTable('url')">Page URL</th>
+                <th onclick="sortTable('views')">Views ↕</th>
+                <th onclick="sortTable('unique')">Unique</th>
+                <th onclick="sortTable('bounce')">Bounce %</th>
+                <th onclick="sortTable('time')">Avg. Time</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="pagesTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BEHAVIOR SECTION ===== -->
+    <section id="section-behavior" class="section">
+      <div class="section-heading">User Navigation Patterns</div>
+      <div class="chart-row cols-3-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Top Navigation Flows</div>
+            <div class="card-badge">BY SESSION %</div>
+          </div>
+          <div id="flowViz"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Entry vs Exit Pages</div>
+            <div class="card-badge">COMPARISON</div>
+          </div>
+          <div class="chart-wrap" style="height:260px;">
+            <canvas id="entryExitChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="chart-row" style="grid-template-columns:1fr 1fr;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Browser Distribution</div>
+            <div class="card-badge">% SHARE</div>
+          </div>
+          <div class="chart-wrap" style="height:200px;">
+            <canvas id="browserChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Geographic Traffic</div>
+            <div class="card-badge">TOP REGIONS</div>
+          </div>
+          <div id="geoViz"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RECOMMENDATIONS SECTION ===== -->
+    <section id="section-recommendations" class="section">
+      <div class="section-heading">Optimization Recommendations</div>
+      <div class="reco-grid" id="recoGrid"></div>
+      <div class="chart-row" style="grid-template-columns:1fr;margin-top:16px;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Priority Matrix — Impact vs Effort</div>
+            <div class="card-badge">STRATEGIC VIEW</div>
+          </div>
+          <div class="chart-wrap" style="height:280px;">
+            <canvas id="matrixChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Data Analytics · Pratinik Infotech · April 2026</div>
+
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
